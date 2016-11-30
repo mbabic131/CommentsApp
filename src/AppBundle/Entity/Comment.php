@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -24,7 +25,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="text")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -32,7 +33,7 @@ class Comment
      * Comment have one author
      *
      * @ORM\ManyToOne(targetEntity="Author", inversedBy="comments")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $author;
 
@@ -42,6 +43,14 @@ class Comment
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->created_at = new \DateTime();
+    }
 
 
     /**

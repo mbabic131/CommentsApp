@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="author")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuthorRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Author
 {
@@ -30,6 +31,13 @@ class Author
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
+
+    /**
      * Author can have many comments 
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="author")
@@ -42,6 +50,14 @@ class Author
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->created_at = new \DateTime();
+    }
 
 
     /**
@@ -141,5 +157,29 @@ class Author
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Author
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

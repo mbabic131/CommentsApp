@@ -3,11 +3,25 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <div class="container">
+            <div class="page-header">
+                <h3 class="text-muted">Zadatak jednostavni</h3>
+            </div>
+
+            {% block body %} {% endblock %}
+
+            <footer class="footer">
+                <p>&copy; Miro Babić</p>
+            </footer>
+
+        </div> <!-- ./container-fluid -->
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

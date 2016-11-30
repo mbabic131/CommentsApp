@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -24,7 +25,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="text")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -32,7 +33,7 @@ class Comment
      * Comment have one author
      *
      * @ORM\ManyToOne(targetEntity="Author", inversedBy="comments")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $author;
 
@@ -42,6 +43,14 @@ class Comment
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->created_at = new \DateTime();
+    }
 
 
     /**
@@ -53,5 +62,76 @@ class Comment
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set text
+     *
+     * @param string $text
+     *
+     * @return Comment
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Comment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \AppBundle\Entity\Author $author
+     *
+     * @return Comment
+     */
+    public function setAuthor(\AppBundle\Entity\Author $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \AppBundle\Entity\Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+}
