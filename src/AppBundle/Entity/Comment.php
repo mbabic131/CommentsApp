@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Comment
+ * Comment.
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
@@ -30,7 +30,7 @@ class Comment
     private $text;
 
     /**
-     * Comment have one author
+     * Comment have one author.
      *
      * @ORM\ManyToOne(targetEntity="Author", inversedBy="comments")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
@@ -52,9 +52,8 @@ class Comment
         $this->created_at = new \DateTime();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -64,7 +63,7 @@ class Comment
     }
 
     /**
-     * Set text
+     * Set text.
      *
      * @param string $text
      *
@@ -78,7 +77,7 @@ class Comment
     }
 
     /**
-     * Get text
+     * Get text.
      *
      * @return string
      */
@@ -88,7 +87,7 @@ class Comment
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -102,7 +101,7 @@ class Comment
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -112,7 +111,7 @@ class Comment
     }
 
     /**
-     * Set author
+     * Set author.
      *
      * @param \AppBundle\Entity\Author $author
      *
@@ -126,7 +125,7 @@ class Comment
     }
 
     /**
-     * Get author
+     * Get author.
      *
      * @return \AppBundle\Entity\Author
      */

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Add new comment {% endblock %}
+{% block title %} Novi komentar {% endblock %}
 
 {% block stylesheets %}
 
@@ -10,6 +10,17 @@
 
 	<div class="row">
 		<h4>Dodaj novi komentar</h4>
+
+	   {% if app.session.flashBag.has('valMessg') %}
+	   	<div class="col-md-12">	
+		   <div class="alert alert-danger col-md-6"><i class="fa fa-check-circle"></i>
+			   {% for msg in app.session.flashBag.get('valMessg') %}
+				   {{ msg }}
+			   {% endfor %}
+		   </div>
+		</div>
+	   {% endif %}
+
 		<div class="col-md-6 col-xs-12">
 			<form class="form-horizontal" method="POST" action="{{ url('store_comment') }}">
 			  <div class="form-group">

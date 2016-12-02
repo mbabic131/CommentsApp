@@ -3,10 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Author
+ * Author.
  *
  * @ORM\Table(name="author")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuthorRepository")
@@ -38,7 +37,7 @@ class Author
     private $slug;
 
     /**
-     * Author can have many comments 
+     * Author can have many comments.
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="author")
      */
@@ -59,9 +58,8 @@ class Author
         $this->created_at = new \DateTime();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -70,7 +68,7 @@ class Author
         return $this->id;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -78,7 +76,7 @@ class Author
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -92,7 +90,7 @@ class Author
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -102,7 +100,7 @@ class Author
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -116,7 +114,7 @@ class Author
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -126,7 +124,7 @@ class Author
     }
 
     /**
-     * Add comment
+     * Add comment.
      *
      * @param \AppBundle\Entity\Comment $comment
      *
@@ -140,7 +138,7 @@ class Author
     }
 
     /**
-     * Remove comment
+     * Remove comment.
      *
      * @param \AppBundle\Entity\Comment $comment
      */
@@ -150,7 +148,7 @@ class Author
     }
 
     /**
-     * Get comments
+     * Get comments.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -160,7 +158,7 @@ class Author
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -174,7 +172,7 @@ class Author
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */

@@ -9,18 +9,26 @@
 {% block body %}
 
 	<div class="row">
-		<h4>Lista svih autora</h4>
+		<div class="col-md-2">
+			<h4>Lista svih autora</h4>
+		</div>
+		<div class="col-md-2">
+			<a href="/add-comment"><h4><button type="button" class="btn btn-xs btn-success">Dodaj novi komentar</button></h4></a>
+		</div>
+	</div>
 
-		{% if authors_list is not empty %}
-			<ul>
-			{% for author in authors_list %}
-				<li>{{ author.name }}</li>
-			{% endfor %}
-			</ul>
-		{% else %}
-			<p>Nema spremljenih autora</p>
-		{% endif %}
-
+	<div class="row">
+		<div class="col-md-12">
+			{% if authors_list is not empty %}
+				<ul>
+				{% for author in authors_list %}
+					<li><a href="{{ author.slug }}">{{ author.name }}</a></li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<p>Nema spremljenih autora</p>
+			{% endif %}
+		</div>
 	</div> <!-- ./row -->
 
 {% endblock %}
