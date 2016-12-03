@@ -19,9 +19,11 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return \Doctrine\ORM\Tools\Pagination\Paginator
 	 */
-	public function getComments($page = 1)
+	public function getComments($page = 1, $author)
 	{
 		$query = $this->createQueryBuilder('c')
+				->where('c.author = :author')
+				->setParameter('author', $author)
 				->orderBy('c.created_at', 'DESC')
 				->getQuery();
 

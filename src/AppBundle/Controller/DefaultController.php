@@ -95,7 +95,7 @@ class DefaultController extends Controller
         }
         else {
             $limit = 5;
-            $comments = $em->getRepository('AppBundle:Comment')->getComments($page);
+            $comments = $em->getRepository('AppBundle:Comment')->getComments($page, $author);
             $totalPages = ceil($comments->count() / $limit);
 
             return $this->render('author_comments.html.twig', array('author' => $author, 'comments' => $comments, 'page' => $page, 'total' => $totalPages));
