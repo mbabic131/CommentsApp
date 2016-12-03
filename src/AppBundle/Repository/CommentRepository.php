@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * CommentRepository.
  *
@@ -10,4 +12,41 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+	/**
+	 * Paginate comments
+	 * 
+	 * @param integer $page
+     *
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+	 */
+	public function getComments($page = 1)
+	{
+		$query = $this->createQueryBuilder('c')
+				->orderBy('c.created_at', 'DESC')
+				->getQuery();
+
+		$paginator = $this->paginate($query, $page);
+
+		return $paginator;
+	}
+
+	/**
+	 * Helper paginate method
+	 *
+	 * @param Doctrine\ORM\Query $query 
+	 * @param integer            $page  Current page (defaults to 1)
+	 * @param integer            $limit The total number per page (defaults to 5)
+	 *
+	 * @return \Doctrine\ORM\Tools\Pagination\Paginator
+	 */
+	public function paginate($query, $page = 1, $limit = 5)
+	{
+	    $paginator = new Paginator($query);
+
+	    $paginator->getQuery()
+	        ->setFirstResult($limit * ($page - 1)) // Offset
+	        ->setMaxResults($limit); // Limit
+
+	    return $paginator;
+	}
 }

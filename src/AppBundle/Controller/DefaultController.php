@@ -72,15 +72,19 @@ class DefaultController extends Controller
         $em->persist($new_comment);
         $em->flush();
 
+        $request->getSession()
+                ->getFlashBag()
+                ->add('successMessg', 'Zahvaljujemo Vam se na ostavljenom komentaru.');
+
         return $this->redirectToRoute('add_comment');
     }
 
     /**
      * Show authors comments
-     * @Route("/{slug}")
+     * @Route("/{slug}/{page}", defaults={"page" = 1}, name="comments")
      * @Method("GET")
      */
-    public function authorCommentsAction($slug)
+    public function authorCommentsAction($slug, $page)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -90,8 +94,11 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Stranica nije pronađena.');
         }
         else {
-            $comments = $author->getComments();
-            return $this->render('author_comments.html.twig', array('author' => $author, 'comments' => $comments));
+            $limit = 5;
+            $comments = $em->getRepository('AppBundle:Comment')->getComments($page);
+            $totalPages = ceil($comments->count() / $limit);
+
+            return $this->render('author_comments.html.twig', array('author' => $author, 'comments' => $comments, 'page' => $page, 'total' => $totalPages));
         }
     }
 

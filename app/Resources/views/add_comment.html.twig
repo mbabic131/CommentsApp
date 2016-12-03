@@ -8,12 +8,24 @@
 
 {% block body %}
 
+	{% if app.session.flashBag.has('successMessg') %}
+		<div class="row">
+			<div class="alert alert-success col-md-6">
+		   {% for msg in app.session.flashBag.get('successMessg') %}
+				{{ msg }}
+			{% endfor %}
+			</div>
+			<div class="col-md-12">
+				<a href="/add-comment"><button type="button" class="btn btn-success">Dodaj novi komentar</button></a>
+			</div>
+		</div>
+	{% else %}
 	<div class="row">
 		<h4>Dodaj novi komentar</h4>
 
 	   {% if app.session.flashBag.has('valMessg') %}
 	   	<div class="col-md-12">	
-		   <div class="alert alert-danger col-md-6"><i class="fa fa-check-circle"></i>
+		   <div class="alert alert-danger col-md-6">
 			   {% for msg in app.session.flashBag.get('valMessg') %}
 				   {{ msg }}
 			   {% endfor %}
@@ -35,6 +47,7 @@
 			</form>
 		</div>
 	</div> <!-- ./row -->
+	{% endif %}
 
 {% endblock %}
 
