@@ -12,43 +12,43 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
-	/**
-	 * Paginate comments
-	 * 
-	 * @param integer $page
+    /**
+     * Paginate comments.
+     *
+     * @param int $page
      *
      * @return \Doctrine\ORM\Tools\Pagination\Paginator
-	 */
-	public function getComments($page = 1, $author)
-	{
-		$query = $this->createQueryBuilder('c')
-				->where('c.author = :author')
-				->setParameter('author', $author)
-				->orderBy('c.created_at', 'DESC')
-				->getQuery();
+     */
+    public function getComments($page, $author)
+    {
+        $query = $this->createQueryBuilder('c')
+                ->where('c.author = :author')
+                ->setParameter('author', $author)
+                ->orderBy('c.created_at', 'DESC')
+                ->getQuery();
 
-		$paginator = $this->paginate($query, $page);
+        $paginator = $this->paginate($query, $page);
 
-		return $paginator;
-	}
+        return $paginator;
+    }
 
-	/**
-	 * Helper paginate method
-	 *
-	 * @param Doctrine\ORM\Query $query 
-	 * @param integer            $page  Current page (defaults to 1)
-	 * @param integer            $limit The total number per page (defaults to 5)
-	 *
-	 * @return \Doctrine\ORM\Tools\Pagination\Paginator
-	 */
-	public function paginate($query, $page = 1, $limit = 5)
-	{
-	    $paginator = new Paginator($query);
+    /**
+     * Helper paginate method.
+     *
+     * @param Doctrine\ORM\Query $query
+     * @param int                $page  Current page (defaults to 1)
+     * @param int                $limit The total number per page (defaults to 5)
+     *
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+     */
+    public function paginate($query, $page = 1, $limit = 5)
+    {
+        $paginator = new Paginator($query);
 
-	    $paginator->getQuery()
-	        ->setFirstResult($limit * ($page - 1)) // Offset
-	        ->setMaxResults($limit); // Limit
+        $paginator->getQuery()
+            ->setFirstResult($limit * ($page - 1)) // Offset
+            ->setMaxResults($limit); // Limit
 
-	    return $paginator;
-	}
+        return $paginator;
+    }
 }

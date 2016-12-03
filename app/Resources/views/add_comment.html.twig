@@ -2,12 +2,9 @@
 
 {% block title %} Novi komentar {% endblock %}
 
-{% block stylesheets %}
-
-{% endblock %}
-
 {% block body %}
 
+	<!-- Thank you message -->
 	{% if app.session.flashBag.has('successMessg') %}
 		<div class="row">
 			<div class="alert alert-success col-md-6">
@@ -20,9 +17,11 @@
 			</div>
 		</div>
 	{% else %}
+
 	<div class="row">
 		<h4>Dodaj novi komentar</h4>
 
+		<!-- Validation message -->
 	   {% if app.session.flashBag.has('valMessg') %}
 	   	<div class="col-md-12">	
 		   <div class="alert alert-danger col-md-6">
@@ -45,12 +44,8 @@
 			  </div>
 			  <button type="submit" class="btn btn-success">Spremi</button>
 			</form>
-		</div>
+		</div> <!-- ./col-md-6 col-xs-12 -->
 	</div> <!-- ./row -->
 	{% endif %}
-
-{% endblock %}
-
-{% block javascripts %}
 
 {% endblock %}

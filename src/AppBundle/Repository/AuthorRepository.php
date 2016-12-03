@@ -11,13 +11,13 @@ namespace AppBundle\Repository;
 class AuthorRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Set slug for author.
+     * Create slug for author.
      *
      * @param string $name
      *
      * @return string
      */
-    public function setSlug($name)
+    public function createSlug($name)
     {
         $slug = str_replace(' ', '', trim($name));
 

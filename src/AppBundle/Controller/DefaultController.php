@@ -6,12 +6,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Author;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Author;
 
 class DefaultController extends Controller
 {
     /**
+     * Show all authors.
+     *
      * @Route("/", name="authors_list")
      * @Method("GET")
      */
@@ -48,7 +50,7 @@ class DefaultController extends Controller
         $author_name = trim($request->request->get('author_name'));
         $comment_text = $request->request->get('comment_text');
 
-        if(empty($author_name) || empty($comment_text)) {
+        if (empty($author_name) || empty($comment_text)) {
             $request->getSession()
                 ->getFlashBag()
                 ->add('valMessg', 'Ime autora i komentar su obavezni.');
@@ -61,7 +63,7 @@ class DefaultController extends Controller
         if (empty($author)) {
             $author = new Author();
             $author->setName($author_name);
-            $author->setSlug($em->getRepository('AppBundle:Author')->setSlug($author_name));
+            $author->setSlug($em->getRepository('AppBundle:Author')->createSlug($author_name));
             $em->persist($author);
         }
 
@@ -80,7 +82,8 @@ class DefaultController extends Controller
     }
 
     /**
-     * Show authors comments
+     * Show author comments.
+     *
      * @Route("/{slug}/{page}", defaults={"page" = 1}, name="comments")
      * @Method("GET")
      */
@@ -92,8 +95,7 @@ class DefaultController extends Controller
 
         if (empty($author)) {
             throw $this->createNotFoundException('Stranica nije pronađena.');
-        }
-        else {
+        } else {
             $limit = 5;
             $comments = $em->getRepository('AppBundle:Comment')->getComments($page, $author);
             $totalPages = ceil($comments->count() / $limit);
@@ -101,5 +103,4 @@ class DefaultController extends Controller
             return $this->render('author_comments.html.twig', array('author' => $author, 'comments' => $comments, 'page' => $page, 'total' => $totalPages));
         }
     }
-
 }
