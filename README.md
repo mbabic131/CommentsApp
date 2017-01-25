@@ -1,4 +1,4 @@
-Aplikacija za ostavljanje komentara (Jednostavni zadatak)
+Aplikacija za ostavljanje komentara
 ========================
 
   http://localhost/ => popis svih autora
